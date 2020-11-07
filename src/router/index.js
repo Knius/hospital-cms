@@ -3,9 +3,16 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const articleList = () => import(/* webpackChunkName: "articleEdit" */ '../pages/publishSys/articleList')
+const articleList = () => import(/* webpackChunkName: "articleList" */ '../pages/publishSys/articleList')
 const articleEdit = () => import(/* webpackChunkName: "articleEdit" */ '../pages/publishSys/articleEdit')
-const msgManagement = () => import(/* webpackChunkName: "msgManagement" */ '../pages/msgSys/msgManagement')
+const departmentList = () => import(/* webpackChunkName: "departmentList" */ '../pages/departmentSys/departmentList')
+const departmentEdit = () => import(/* webpackChunkName: "departmentEdit" */ '../pages/departmentSys/departmentEdit')
+const doctorList = () => import(/* webpackChunkName: "doctorList" */ '../pages/doctorSys/doctorList')
+const doctorEdit = () => import(/* webpackChunkName: "doctorEdit" */ '../pages/doctorSys/doctorEdit')
+const imgList = () => import(/* webpackChunkName: "imgList" */ '../pages/imgSys/imgList')
+const doctorTimeList = () => import(/* webpackChunkName: "doctorTimeList" */ '../pages/doctorTime/doctorTimeList')
+const friendLinkList = () => import(/* webpackChunkName: "friendLinkList" */ '../pages/friendLinkSys/friendLinkList')
+const userList = () => import(/* webpackChunkName: "userList" */ '../pages/userSys/userList')
 const login = () => import(/* webpackChunkName: "login" */ '../pages/login')
 const main = () => import(/* webpackChunkName: "main" */ '../pages/main')
 
@@ -39,9 +46,44 @@ const routes = [
         component: articleEdit
       },
       {
-        path: '/msgSys/msgManagement',
-        name: 'msgManagement',
-        component: msgManagement
+        path: '/departmentSys/departmentList',
+        name: 'departmentList',
+        component: departmentList
+      },
+      {
+        path: '/departmentSys/departmentEdit',
+        name: 'departmentEdit',
+        component: departmentEdit
+      },
+      {
+        path: '/imgSys/imgList',
+        name: 'imgList',
+        component: imgList
+      },
+      {
+        path: '/userSys/userList',
+        name: 'userList',
+        component: userList
+      },
+      {
+        path: '/doctorSys/doctorList',
+        name: 'doctorList',
+        component: doctorList
+      },
+      {
+        path: '/doctorSys/doctorEdit',
+        name: 'doctorEdit',
+        component: doctorEdit
+      },
+      {
+        path: '/doctorTime/doctorTimeList',
+        name: 'doctorTimeList',
+        component: doctorTimeList
+      },
+      {
+        path: '/friendLink/friendLinkList',
+        name: 'friendLinkList',
+        component: friendLinkList
       }
     ]
   },

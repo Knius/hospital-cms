@@ -3,7 +3,7 @@ import qs from 'qs'
 import { Message } from 'element-ui'
 
 const instance = axios.create({
-  timeout: 10000,
+  timeout: 40000,
   // baseURL: process.env.VUE_APP_BASE_API
   baseURL: '/center'
 });
@@ -45,20 +45,30 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     removePending(response.config);
-    // if(response.data.code !== 0){
-    //   Message.error(response.data.msg)
-    //   if(response.data.code === 403){   //重新登录
-    //     location.href = ''
-    //   }
-    // }
+    if(response.data.type === 'application/octet-stream'){
+      return response.data
+    }
+    if(response.data.code !== 200){
+      Message.error(response.data.message)
+      if(response.data.code === 403){   //重新登录
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("realname");
+        localStorage.removeItem("userid");
+        Message.error('请先登录');
+        location.href = ''
+      }
+    }
     return response.data
   },
   error => {
     if (error.response.status == 302 || error.response.status == 403) {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      localStorage.removeItem("realname");
+      localStorage.removeItem("userid");
       Message.error('请先登录');
-      // location.href = ''
+      location.href = ''
     } else {
       Message.error(error.response.data.message || '系统错误');
     }
@@ -91,13 +101,13 @@ export default {
       }
     })
   },
-  instance(url, params={}) {
+  download(url, params={}) {
     return instance({
       method: 'get',
       url,
       params,
       timeout: 10000000,
-      responseType: 'blob',
+      responseType: 'blob'
     })
   },
   xml(url, params={}) {
@@ -169,6 +179,7 @@ export default {
       method: 'post',
       url,
       data: data,
+      timeout: 100000,
       withCredentials: true,
       headers: {
         'X-Requested-With': 'XMLHttpRequest',

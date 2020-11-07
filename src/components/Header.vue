@@ -6,8 +6,7 @@
     </div>
     <div class="userInfo">
       <span>你好，{{username}}</span>
-      <span>修改密码</span>
-      <span @click="$router.push('/login')">退出</span>
+      <span @click="logout">退出</span>
     </div>
   </div>
 </template>
@@ -28,6 +27,11 @@ export default {
     changeFold() {
       this.fold = !this.fold
       this.$emit('changeCollapse', this.fold)
+    },
+    logout() {
+      localStorage.removeItem('username')
+      localStorage.removeItem('token')
+      this.$router.push('/login')
     }
   }
 }
@@ -42,6 +46,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid hsl(0, 0%, 88%);
+    margin-bottom: 50px;
     .collapse{
       font-size: 24px;
     }

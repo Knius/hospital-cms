@@ -34,34 +34,49 @@ export default {
     return {
       //初始化配置
       init: {
-        language_url: `./tinymce/langs/zh_CN.js`,
+        language_url: './tinymce/langs/zh_CN.js',
         language: "zh_CN",
         skin_url: `./tinymce/skins/ui/oxide`,
         content_css: `./tinymce/skins/content/default/content.css`,
+        fontsize_formats: '12px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px 36px 40px 44px 48px 52px 56px 60px 66px 72px',
         font_formats:
           "微软雅黑=Microsoft YaHei;宋体=simsun,serif;黑体=SimHei;仿宋=FangSong;楷体=KaiTi;Helvetica Neue=Helvetica Neue;sans-serif=sans-serif;苹果苹方=PingFang SC;",
-        height: 300,
+        height: 600,
         plugins: `link image media table wordcount`,
         toolbar: [
-          "undo redo | formatselect | bold italic fontselect forecolor backcolor | removeformat",
+          "undo redo | fontsizeselect formatselect | bold italic fontselect forecolor backcolor | removeformat",
           `alignleft aligncenter alignright alignjustify | outdent indent | link image media table |`
         ],
         branding: false,
         menubar: false,
         // 上传base64化图片
         images_upload_handler: (blobInfo, success) => {
-          const img = "data:image/jpeg;base64," + blobInfo.base64();
-          success(img);
+          console.log(blobInfo)
+          const blob = blobInfo.blob();
+          
+          let formData = new FormData();
+          formData.append("file", blob);
+
+          this.$request.uploadPost('/img/upload',formData)
+          .then(res => {
+            console.log(res)
+            if (res.code === 200 && res.data) {
+              success(res.data.url);
+            }
+          })
         }
       },
       myValue: this.value
     };
   },
-  created() {
-    this.registerTelPlugin();
-  },
+  // created() {
+  //   this.registerTelPlugin();
+  // },
   mounted() {
-    tinymce.init({});
+    tinymce.init({
+      // automatic_uploads: false,
+      // images_upload_url: 'postAcceptor.php',
+    });
   },
   methods: {
     clear() {

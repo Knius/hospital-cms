@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h1>凯德医院管理后台</h1>
+    <h1>恺德医院管理后台</h1>
     <el-input prefix-icon="el-icon-user" v-model="username"></el-input>
     <el-input prefix-icon="el-icon-lock" v-model="password" show-password @keyup.enter.native="login"></el-input>
     <el-button type="primary" @click="login">登陆</el-button>
@@ -22,9 +22,11 @@ export default {
         username: this.username,
         password: this.password
       })
-      if(res.token){
-        localStorage.setItem('token',res.token)
-        localStorage.setItem('username',res.username)
+      if(res.data.token){
+        localStorage.setItem('token',res.data.token)
+        localStorage.setItem('username',res.data.username)
+        localStorage.setItem('userid',res.data.userId)
+        localStorage.setItem('realname',res.data.realname)
         this.$router.push('/main')
       }
     }

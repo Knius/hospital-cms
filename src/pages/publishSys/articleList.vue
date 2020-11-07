@@ -53,18 +53,26 @@
         </el-table-column>
         <el-table-column align="center" prop="columnCn" label="栏目" min-width="100">
         </el-table-column>
+        <el-table-column align="center" prop="tagCn" label="标签" min-width="100">
+        </el-table-column>
         <el-table-column align="center" prop="author" label="作者" min-width="100">
         </el-table-column>
-        <el-table-column align="center" prop="publishDate" label="发布日期" min-width="140">
+        <el-table-column align="center" prop="publishDate" label="发布日期" min-width="130">
+        </el-table-column>
+        <el-table-column align="center" prop="createDate" label="创建日期" min-width="130">
         </el-table-column>
         <el-table-column align="center" prop="statusCn" label="状态" min-width="100">
         </el-table-column>
-        <el-table-column align="center" show-overflow-tooltip prop="brief" label="简介" min-width="300">
+        <!-- <el-table-column align="center" show-overflow-tooltip prop="brief" label="简介" min-width="300">
+        </el-table-column> -->
+        <el-table-column align="center" prop="order" label="排序" width="65">
         </el-table-column>
-        <el-table-column align="center" label="操作" min-width="240">
+        <el-table-column align="center" label="操作" width="420" fixed="right">
           <template slot-scope="scope">
-            <el-button plain type="primary" size="small" @click="changeStatus(scope.row)" icon="el-icon-view" v-if="scope.row.status == 0">审查</el-button>
-            <el-button plain type="primary" size="small" @click="changeStatus(scope.row)" icon="el-icon-document" v-if="scope.row.status == 2">发布</el-button>
+            <el-button plain type="primary" size="small" @click="changeStatus(scope.row.id, 1)" icon="el-icon-view" v-if="scope.row.status == 0">提交审查</el-button>
+            <el-button plain type="primary" size="small" @click="changeStatus(scope.row.id, 2)" icon="el-icon-circle-check" v-if="scope.row.status == 1">审查通过</el-button>
+            <el-button plain type="primary" size="small" @click="changeStatus(scope.row.id, 3)" icon="el-icon-circle-close" v-if="scope.row.status == 1">审查不通过</el-button>
+            <el-button plain type="primary" size="small" @click="changeStatus(scope.row.id, 4)" icon="el-icon-document" v-if="scope.row.status == 2">发布文章</el-button>
             <el-button plain type="primary" size="small" @click="toDetail(scope.row.id)" icon="el-icon-edit">详情</el-button>
             <el-button plain type="primary" size="small" @click="singleDelete(scope.row.id)" icon="el-icon-delete">删除</el-button>
           </template>
@@ -104,98 +112,7 @@ export default {
         size: 10,
         total: 100
       },
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        },
-        {
-          date: '2016-05-02',
-          name: '这是一篇文章的标题',
-          mobile: '鸭子',
-          status: '草稿',
-          column: '图文信息',
-          content: '这是一段很长很长特别长特别长超机场昌吉厂的一段简介',
-          answer: '放多久开始就懂法守法胜多负少开发商',
-        }
-      ],
+      tableData: [],
       selection: []   //选中的文章
     }
   },
@@ -208,22 +125,23 @@ export default {
     //获取栏目列表
     async getColumns() {
       const res = await this.$request.formGet('/article/column/all')
-      this.columns = res.columns
+      this.columns = res.data.columns
     },
     //获取标签标签
     async getTags() {
       const res = await this.$request.formGet('/article/column/tags',{
         column: this.search.column
       })
-      this.tags = res.tags
+      this.tags = res.data.tags
+      this.search.tag = ''
     },
     //获取文章所有状态
     async getStatus() {
       const res = await this.$request.formGet('/article/status/all')
-      Object.keys(res).forEach(key => {
+      Object.keys(res.data).forEach(key => {
         this.statusList.push({
           value: key,
-          label: res[key]
+          label: res.data[key]
         })
       })
     },
@@ -240,35 +158,58 @@ export default {
         page: this.page.current,
         size: this.page.size
       })
-      this.tableData = res.data
-      this.page.total = res.totalSize
+      this.tableData = res.data.data
+      this.page.total = res.data.totalSize
     },
     //删除单个文章
-    async singleDelete(id) {
-      const res = await this.$request.formDelete('/article/delete',{ id })
-      if(res === '删除成功'){
-        this.$message.success('删除成功')
-        this.fetchList(0)
-      }
+    singleDelete(id) {
+      this.$confirm('确认删除文章吗', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const res = await this.$request.formDelete('/article/delete',{ id })
+        if(res.code === 200){
+          this.$message.success('删除成功')
+          this.fetchList(0)
+        }
+      }).catch(() => {})
     },
     //批量删除
-    async batchDelete() {
-      let ids = this.selection.map(item => {
-        return item.id
-      })
-      const res = await this.$request.jsonPost('/article/delete/batch', ids)
-      if(res === '删除成功'){
-        this.$message.success('删除成功')
-        this.fetchList(0)
-      }
+    batchDelete() {
+      this.$confirm('确认删除文章吗', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        let ids = this.selection.map(item => {
+          return item.id
+        })
+        const res = await this.$request.jsonPost('/article/delete/batch', ids)
+        if(res.code === 200){
+          this.$message.success('删除成功')
+          this.fetchList(0)
+        }
+      }).catch(() => {})
     },
     //状态切换
-    async changeStatus(data) {
-      const { id, status } = data
-      let targetStatus = parseInt(status) + 1
-      const res = await this.$request.formPost(`/article/status/update?articleId=${id}&status=${targetStatus}`)
-      if(res.includes('成功')){
-        this.fetchList(0)
+    async changeStatus(id, targetStatus) {
+      if(targetStatus === 4){
+        this.$confirm('确认发布文章吗', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          const res = await this.$request.formPost(`/article/status/update?articleId=${id}&status=${targetStatus}`)
+          if(res.code === 200){
+            this.fetchList(0)
+          }
+        }).catch(() => {})
+      }else{
+        const res = await this.$request.formPost(`/article/status/update?articleId=${id}&status=${targetStatus}`)
+        if(res.code === 200){
+          this.fetchList(0)
+        }
       }
     },
     //选项更改
